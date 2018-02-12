@@ -11,6 +11,7 @@ class PostsNew extends Component {
           type="text"
           {...field.input}
         />
+        {field.meta.error}
       </div>
     );
   }
@@ -44,6 +45,8 @@ function validate(values) {
   const errors = {};
   // Validate the input from 'values'
   if (!values.title) {
+    // .title, .categories, .content are linked to the "name" property in the Field component, so they
+    // must be the same if we want them to show an error
     errors.title = 'Enter a title please';
   }
   if (!values.categories) {
