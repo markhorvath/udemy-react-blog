@@ -10,15 +10,24 @@ class PostsNew extends Component {
           className="form-control"
           type="text"
           {...field.input}
+              // ternary op below: field.meta.touched is first evaluated
+              // as T or F, if T everything on the left of : returns, if F then the right
         />
-        {field.meta.error}
+        {field.meta.touched ? field.meta.error : ''}
       </div>
     );
   }
 
+  onSubmit(values) {
+    // this === component
+    console.log(values);
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           label="Title for Post" //this label could be called whatever as
           // longs as its called the same in renderField (field.WHATEVER)
@@ -35,6 +44,8 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Cancel</button>
       </form>
     );
   }
