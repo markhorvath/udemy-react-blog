@@ -3,8 +3,15 @@ import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
   renderField(field) {
+    // same as const meta = field.meta;, this is destructuring just to make code shorter
+    // previously was all field.meta.whatever
+    // The { touched, error } pulls off touched and error from meta object, example of
+    // using desctructuring to access properties on nested objects
+    const { meta: { touched, error } } = field;
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+
     return (
-      <div className="form-group">
+      <div className={className}>
         <label>{field.label}</label>
         <input
           className="form-control"
@@ -13,7 +20,9 @@ class PostsNew extends Component {
               // ternary op below: field.meta.touched is first evaluated
               // as T or F, if T everything on the left of : returns, if F then the right
         />
-        {field.meta.touched ? field.meta.error : ''}
+        <div className = "text-help">
+          {touched ? error : ''}
+        </div>
       </div>
     );
   }
