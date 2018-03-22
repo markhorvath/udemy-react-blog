@@ -7,11 +7,11 @@ import { fetchPosts } from '../actions';
 
 class PostsIndex extends Component {
   componentDidMount() {
+    console.log("componentDidMount() called");
     this.props.fetchPosts();
   }
 
   renderPosts() {
-    console.log("renderPosts() called");
     return _.map(this.props.posts, post => {
       return (
         <li className="list-group-item" key={post.id}>
